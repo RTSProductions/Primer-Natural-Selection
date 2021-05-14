@@ -1,0 +1,15 @@
+﻿<Properties StartupConfiguration="{E71A1FC6-B003-08E1-8DE8-ED064050A9EA}|">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Enviroment.cs">
+    <Files>
+      <File FileName="Assets/Scripts/Creature.cs" Line="42" Column="25" />
+      <File FileName="Assets/Scripts/Enviroment.cs" Line="7" Column="22" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="6bc92330-0e0b-4cd3-b55a-50a07f1fcf07" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
