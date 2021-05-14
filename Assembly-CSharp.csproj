@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{E71A1FC6-B003-08E1-8DE8-ED064050A9EA}</ProjectGuid>
+    <ProjectGuid>{67F54CE8-367C-CC2D-0701-9CB1E334C100}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -56,9 +56,9 @@
     <Analyzer Include="/Applications/Visual Studio.app/Contents/Resources/lib/monodevelop/AddIns/MonoDevelop.Unity/Analyzers/Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets/Scripts/SimpleCameraController.cs" />
-    <Compile Include="Assets/Scripts/Creature.cs" />
     <Compile Include="Assets/Scripts/Enviroment.cs" />
+    <Compile Include="Assets/Scripts/Creature.cs" />
+    <Compile Include="Assets/Scripts/SimpleCameraController.cs" />
     <Compile Include="Assets/Scripts/Food.cs" />
   </ItemGroup>
   <ItemGroup>
