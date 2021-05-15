@@ -7,6 +7,8 @@ public class Enviroment : MonoBehaviour
     [Range(1, 20)]
     public float timeScale = 1;
 
+    public int foodModifer = 1;
+
     [Range(0, 1000)]
     public float SpawnRange = 50;
 
@@ -14,11 +16,14 @@ public class Enviroment : MonoBehaviour
 
     public Creature[] creatures;
     public Food[] allFood;
+    public Transform[] edgeSpots;
 
     // Start is called before the first frame update
     void Start()
     {
         creatures = FindObjectsOfType<Creature>();
+
+        edgeSpots = transform.GetComponentsInChildren<Transform>();
 
         StartGeneration();
     }
@@ -39,7 +44,7 @@ public class Enviroment : MonoBehaviour
 
         foreach (var cret in creatures)
         {
-            if (cret.transform.position == cret.homePos && cret.dayGoing == true)
+            if (cret != null && cret.transform.position == cret.homePos && cret.dayGoing == true)
             {
                 all++;
             }
@@ -59,18 +64,26 @@ public class Enviroment : MonoBehaviour
 
     void StartGeneration()
     {
-        foreach (var cret in creatures)
-        {
-            cret.OnDayStart();
-        }
         foreach (var food in allFood)
         {
             Destroy(food.gameObject);
         }
-        int foodAmount = (creatures.Length * 2) - ((creatures.Length * 2) / 4);
+        int foodAmount = creatures.Length + (creatures.Length / 2) + foodModifer;
+        if (foodAmount < 0)
+        {
+            foodAmount = 0;
+        }
         for (int i = 0; i < foodAmount; i++)
         {
             SpawnFood();
+        }
+        creatures = FindObjectsOfType<Creature>();
+
+        allFood = FindObjectsOfType<Food>();
+
+        foreach (var cret in creatures)
+        {
+            cret.OnDayStart();
         }
     }
 
@@ -99,5 +112,27 @@ public class Enviroment : MonoBehaviour
         Gizmos.color = Color.green;
 
         Gizmos.DrawWireCube(transform.position, new Vector3(SpawnRange, 10, SpawnRange));
+    }
+    public bool GetPossibleFood(Creature creature)
+    {
+        bool value = false;
+
+        foreach (var cret in creatures)
+        {
+            if (creature.transform.position != creature.homePos)
+            {
+                if (creature.transform.localScale.y > (cret.transform.localScale.y * 1.2f))
+                {
+                    value = true;
+                }
+            }
+        }
+
+       if (allFood.Length >= 1)
+       {
+            value = true;
+       }
+
+        return value;
     }
 }

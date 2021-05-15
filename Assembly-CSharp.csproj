@@ -60,6 +60,7 @@
     <Compile Include="Assets/Scripts/Creature.cs" />
     <Compile Include="Assets/Scripts/SimpleCameraController.cs" />
     <Compile Include="Assets/Scripts/Food.cs" />
+    <Compile Include="Assets/Scripts/ViewGizmos.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

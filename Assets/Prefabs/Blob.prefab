@@ -48,7 +48,14 @@ MonoBehaviour:
   genes:
     visionRaudis: 4
     speed: 6
-  energy: 2
+    scale: 1
+    mutationPercent: 10
+  dayGoing: 0
+  energy: 1
+  normal: {r: 0, g: 0.8352941, b: 1, a: 1}
+  speed: {r: 1, g: 0.38056087, b: 0, a: 1}
+  sence: {r: 0.30847645, g: 0, b: 1, a: 1}
+  body: {fileID: 1266419827110395888}
   homePos: {x: 0, y: 0, z: 0}
 --- !u!1001 &8889010186456471851
 PrefabInstance:
@@ -138,5 +145,10 @@ PrefabInstance:
 --- !u!4 &8995556347171602112 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: cc763051c50bf46d2b514a40ec2a1311, type: 3}
+  m_PrefabInstance: {fileID: 8889010186456471851}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &1266419827110395888 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -1526964690268444965, guid: cc763051c50bf46d2b514a40ec2a1311, type: 3}
   m_PrefabInstance: {fileID: 8889010186456471851}
   m_PrefabAsset: {fileID: 0}
