@@ -8,15 +8,21 @@ public class Creature : MonoBehaviour
 
     public Genes genes;
 
-    bool dayGoing = false;
+    [HideInInspector]
+    public bool dayGoing = false;
 
     int food = 0;
+
+    public float energy = 2;
 
     Transform target;
 
     Vector3 targetPos = new Vector3(0, 0.24f, 0);
 
-    Vector3 homePos;
+    [HideInInspector]
+    public Vector3 homePos;
+
+    Quaternion homeRot;
 
     Enviroment enviroment;
 
@@ -29,7 +35,23 @@ public class Creature : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (energy <= 0)
+        {
+            Destroy(gameObject);
+        }
+        if (transform.position == homePos)
+        {
+            transform.rotation = homeRot;
+        }
+
         float distance = Vector3.Distance(transform.position, targetPos);
+
+        float distToCenter = Vector3.Distance(transform.position, Vector3.zero);
+
+        if (distToCenter > enviroment.SpawnRange)
+        {
+            GetRandomPos();
+        }
 
         if (target != null)
         {
@@ -37,7 +59,7 @@ public class Creature : MonoBehaviour
         }
         if (dayGoing)
         {
-            if (food >= 2)
+            if (food >= 2 || food == 1 && energy <= 1)
             {
                 targetPos = homePos;
             }
@@ -50,6 +72,7 @@ public class Creature : MonoBehaviour
                 target = null;
 
                 food++;
+                energy += 0.2f;
             }
             if (distance <= 1 && target == null && food < 2)
             {
@@ -69,6 +92,21 @@ public class Creature : MonoBehaviour
                 }
             }
         }
+        else
+        {
+            if (food >= 2)
+            {
+                Reperduse();
+            }
+            food = 0;
+        }
+    }
+
+    void Reperduse()
+    {
+        var baby = Instantiate(gameObject, transform.position + (transform.right * 2), transform.rotation);
+
+        baby.GetComponent<Creature>().Generation++;
     }
 
     private void OnDrawGizmos()
@@ -81,6 +119,7 @@ public class Creature : MonoBehaviour
     {
         dayGoing = true;
         homePos = transform.position;
+        homeRot = transform.rotation;
     }
     public void OnDayEnd()
     {
@@ -91,6 +130,10 @@ public class Creature : MonoBehaviour
     {
         transform.position = Vector3.MoveTowards(transform.position, new Vector3(pos.x, 0.24f, pos.z), genes.speed * Time.deltaTime);
         transform.LookAt(new Vector3(pos.x, 0.24f, pos.z));
+        if (transform.position != homePos)
+        {
+            energy -= 0.001f * (genes.speed / 3);
+        }
     }
 
     void GetRandomPos()
@@ -101,15 +144,9 @@ public class Creature : MonoBehaviour
 
         targetPos = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
 
-        float distance = Vector3.Distance(Vector3.zero, targetPos);
-
-        while (distance > enviroment.SpawnRange)
+        if (!Physics.Raycast(targetPos, -Vector3.up))
         {
-            Debug.Log(distance);
-            randomZ = UnityEngine.Random.Range(-enviroment.SpawnRange, enviroment.SpawnRange);
-            randomX = UnityEngine.Random.Range(-enviroment.SpawnRange, enviroment.SpawnRange);
-            targetPos = new Vector3(randomX, transform.position.y, randomZ);
-            distance = Vector3.Distance(Vector3.zero, targetPos);
+            GetRandomPos();
         }
     }
 }
